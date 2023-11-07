@@ -2,8 +2,6 @@ import React from 'react';
 import BackBackWithDialog from './Account/BackWithDialog';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import AccountProvider from './context/AccountProvider';
-import { Routes, Route } from "react-router-dom";
-import RoomPage from './RoomPage/RoomPage';
 
 // Main Function
 const App = () => {
@@ -13,10 +11,7 @@ const App = () => {
     return <div>
         <GoogleOAuthProvider clientId={clientID} >
             <AccountProvider>
-                <Routes>
-                    <Route path='/' element={<BackBackWithDialog />} />
-                    <Route path="/room/:roomId" element={<RoomPage />} />
-                </Routes>
+                <BackBackWithDialog />
             </AccountProvider>
         </GoogleOAuthProvider>
 
