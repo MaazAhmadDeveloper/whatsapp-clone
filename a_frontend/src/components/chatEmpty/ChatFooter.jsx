@@ -47,7 +47,12 @@ const ChatFooter =({sendText, setMessage, message, setFile, file , setImage})=>{
 
 const onFileChange = (e)=>{
     setFile(e.target.files[0]);
-    setMessage(e.target.files[0].name);
+    setMessage("loading...");
+
+    setTimeout(() => {
+        setMessage(e.target.files[0].name);
+    }, 6000);
+
 };
 
     return <div>

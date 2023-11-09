@@ -20,12 +20,11 @@ const Container = styled(Box)`
 const ChatBody = ({person, conversation})=>{
 
         const [ image , setImage ] = useState();
-        const [message , setMessage] = useState("");
         const [messageFromDb , setMessageFromDb] = useState([]);   
         const [file , setFile]  = useState(""); 
         const [socketMessage , setSocketMessage] = useState(null);
 
-        const { account , socket, setMessageFlag, messageFlag } = useContext(AccountContext);
+        const { account , socket, setMessageFlag, messageFlag, setMessage, message } = useContext(AccountContext);
 
     useEffect(()=>{
         socket.current.on("getmessage" , data=> {
@@ -34,7 +33,7 @@ const ChatBody = ({person, conversation})=>{
                     createdAt : Date.now()
                 } );
         })
-    },[])    
+    },[]);
     
     useEffect(()=>{
         socketMessage && conversation?.members?.includes(socketMessage.senderId)&&
@@ -51,7 +50,7 @@ const ChatBody = ({person, conversation})=>{
 
     const sendText = async (e)=>{
         const keyboardKeys = e.which;
-        if (keyboardKeys === 13 && message !== "" ) {
+        if (keyboardKeys === 13 && message !== "" && message !== "loading..." ) {
 
             let messageObject = {};
             if (!image) {
@@ -72,11 +71,11 @@ const ChatBody = ({person, conversation})=>{
                 }
             }
 
+            setMessage("");
             socket.current.emit("sendMessage" , messageObject)
 
             await newMessage(messageObject);
   
-            setMessage("");
             setImage("");
             setFile("");
             setMessageFlag(prev => !prev)

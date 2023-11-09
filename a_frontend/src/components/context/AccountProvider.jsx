@@ -7,6 +7,7 @@ const AccountProvider = ({children})=>{
     const [person , setPerson] = useState({});
     const [activeUsers , setActiveUsers] = useState([]);
     const [messageFlag , setMessageFlag] = useState(false);
+    const [message , setMessage] = useState("");
 
     const socket = useRef();
 
@@ -24,7 +25,9 @@ const AccountProvider = ({children})=>{
             setActiveUsers,
             activeUsers,
             messageFlag,
-            setMessageFlag
+            setMessageFlag,
+            setMessage,
+            message
         }}
     >
          {children}
